@@ -1,2 +1,9 @@
-scripts/*.js
-scripts/*.js.map
+src/scripts/*.js
+src/scripts/*.js.map
+src/test/*.js
+src/test/*.js.map
+coverage/
+.idea/
+.DS_Store
+typings/
+node_modules/
