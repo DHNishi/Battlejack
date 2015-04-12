@@ -44,6 +44,12 @@ module.exports = function(config) {
     plugins: [
       'karma-jasmine',
       'karma-phantomjs-launcher',
-    ]
+      'karma-coverage'
+    ],
+
+    reporters: ['coverage'],
+    preprocessors: {
+      'src/scripts//*.js': ['coverage']
+    }
   });
 };

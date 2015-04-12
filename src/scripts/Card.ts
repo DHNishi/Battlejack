@@ -27,14 +27,27 @@ enum Rank {
     ACE
 }
 
+
 class Card {
     suit : Suit;
     rank : Rank;
+
+    /**
+     * Constructs a new card with a given suit and rank.
+     * @param {Suit} suit The suit of the card.
+     * @param {Rank} rank The rank of the card.
+     */
     constructor(suit, rank) {
         this.suit = suit;
         this.rank = rank;
     }
 
+    /**
+     * Compatator for a card.
+     * @param {Card} a First card to compare.
+     * @param {Card} b Second card to compare.
+     * @returns {number}
+     */
     static compareTo(a : Card, b : Card) {
         if (a.rank > b.rank) {
             return 1;

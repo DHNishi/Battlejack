@@ -12,9 +12,29 @@ class HandEvaluator {
 
     BLACKJACK = 21;
 
+    /**
+     * Scores a Blackjack hand.
+     * @param {Hand} hand A hand to evaluate.
+     * @returns {number} The value of the hand from 2 to 21. If the value is 0, the hand was a bust.
+     */
     evaluate(hand : Hand) {
-        var sum = 0;
+        var sum = this.blackjackSumHand(hand);
 
+        // Bust check.
+        if (sum > this.BLACKJACK) {
+            return 0;
+        }
+
+        return sum;
+    }
+
+    /**
+     * Sums all of the cards in the hand in the optimal fashion.
+     * @param hand A hand to evaluate.
+     * @returns {number} The sum of the hand.
+     */
+    blackjackSumHand(hand : Hand) {
+        var sum = 0;
         // Sort a copy of the list before evaluating to not mutate the parent.
         hand.cards.slice().sort(Card.compareTo).forEach((card) => {
             var cardValue;
@@ -39,10 +59,6 @@ class HandEvaluator {
             sum += cardValue;
         });
 
-        // Bust check.
-        if (sum > this.BLACKJACK) {
-            return 0;
-        }
         return sum;
     }
 }
