@@ -8,6 +8,7 @@
 
 /// <reference path="Card.ts"/>
 /// <reference path="Hand.ts"/>
+
 class HandEvaluator {
 
     BLACKJACK = 21;
