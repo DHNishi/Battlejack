@@ -39,6 +39,7 @@ class HandEvaluator {
         // Sort a copy of the list before evaluating to not mutate the parent.
         hand.cards.slice().sort(Card.compareTo).forEach((card) => {
             var cardValue;
+            console.log(card.rank);
             switch(card.rank) {
                 case Rank.JACK:
                 case Rank.QUEEN:
@@ -59,6 +60,7 @@ class HandEvaluator {
 
             sum += cardValue;
         });
+        console.log(sum);
 
         return sum;
     }

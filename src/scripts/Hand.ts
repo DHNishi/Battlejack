@@ -14,4 +14,8 @@ class Hand {
     add(card : Card) {
         this.cards.push(card);
     }
+
+    clear() {
+        this.cards = [];
+    }
 }

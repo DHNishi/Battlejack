@@ -9,11 +9,19 @@ html(ng-app="blackjackApp")
         script(src="scripts/HandEvaluator.js")
         script(src="scripts/BattleEvaluator.js")
         script(src="scripts/services/BattleEntitiesService.js")
+        script(src="scripts/services/DeckService.js")
         script(src="scripts/controllers/BattleController.js")
     body
         div Hello World
         div {{2 + 5}}
         div(ng-controller="BattleController as battle")
             h2 Hello {{battle.helloWorld}}
+            button(ng-click="battle.deal()") Deal
+            button(ng-click="battle.testAddEntity()") Add Entity
             div(ng-repeat="entity in battle.entities")
-                div Hello {{entity}}
+                div {{entity}}
+                div {{battle.getScore(entity)}}
+                button(ng-click="battle.hit(entity)") Hit
+                button(ng-click="battle.stand(entity)") stand
+            div(ng-repeat="card in battle.deck")
+                div Hello {{card}}

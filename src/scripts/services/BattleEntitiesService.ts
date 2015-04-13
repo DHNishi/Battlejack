@@ -22,7 +22,7 @@ function makeBattleEntitiesService() {
 
     // Adds a new entity in battle mode.
     service.addEntity = (entity : Entity) => {
-        var newEntity = new EntityInBattle(entity, undefined);
+        var newEntity = new EntityInBattle(entity, new Hand([]));
         service.entities.push(newEntity);
     };
 

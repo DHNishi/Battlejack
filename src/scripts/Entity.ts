@@ -27,6 +27,7 @@ class Entity implements IEntity {
 
 class EntityInBattle implements IEntity {
     hand : Hand;
+    standing : boolean;
 
     // Entity
     entity : Entity;
@@ -34,6 +35,7 @@ class EntityInBattle implements IEntity {
     constructor(entity : Entity, hand : Hand) {
         this.entity = entity;
         this.hand = hand;
+        this.standing = false;
     }
 
     getAttackBonus() {
