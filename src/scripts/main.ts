@@ -2,6 +2,11 @@
  * Created by dhnishi on 4/12/15.
  */
 
-/// <reference path="../../typings/angularjs/angular.d.ts"/>
+/// <reference path="_all.ts"/>
 
-var app = angular.module('blackjackApp', []);
+module battlejack {
+    var app = angular.module('blackjackApp', [])
+        .factory('deckService', makeDeckService)
+        .factory('battleEntitiesService', makeBattleEntitiesService)
+        .controller("BattleController", ["battleEntitiesService", "deckService", BattleController]);
+}

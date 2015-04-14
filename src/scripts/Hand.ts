@@ -2,20 +2,22 @@
  * Created by dhnishi on 4/11/15.
  */
 
-/// <reference path="Card.ts"/>
+/// <reference path="_all.ts"/>
 
-class Hand {
-    cards : Card[];
+module battlejack {
+    export class Hand {
+        cards : Card[];
 
-    constructor(cards : Card[]) {
-        this.cards = cards;
-    }
+        constructor(cards : Card[]) {
+            this.cards = cards;
+        }
 
-    add(card : Card) {
-        this.cards.push(card);
-    }
+        add(card : Card) {
+            this.cards.push(card);
+        }
 
-    clear() {
-        this.cards = [];
+        clear() {
+            this.cards = [];
+        }
     }
 }
