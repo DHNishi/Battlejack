@@ -6,7 +6,10 @@ module.exports = function(config) {
     // frameworks to use
     frameworks: ['jasmine'],
 
-    files: ['src/**/*.js'],
+    files: [
+      'node_modules/angular/angular.js',
+      'src/**/*.js'
+    ],
 
     // list of files to exclude
     exclude: [],

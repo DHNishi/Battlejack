@@ -6,10 +6,13 @@
 
 /// <reference path="../scripts/Card.ts"/>
 
-describe("Card", () => {
-    it("Card Constructed with Suit and Rank", () => {
-        var aceSpades = new Card(Suit.SPADES, Rank.ACE);
-        expect(aceSpades.suit).toBe(Suit.SPADES);
-        expect(aceSpades.rank).toBe(Rank.ACE);
+module battlejack {
+    describe("Card", () => {
+        it("Card Constructed with Suit and Rank", () => {
+            var aceSpades = new Card(Suit.SPADES, Rank.ACE);
+            expect(aceSpades.suit).toBe(Suit.SPADES);
+            expect(aceSpades.rank).toBe(Rank.ACE);
+        });
     });
-});
+
+}
