@@ -37,31 +37,43 @@
  */
 
 module battlejack {
-    export function BattleController(battleEntitiesService, deckService) {
-        var battleCtrl = this;
-        var handEvaluator = new HandEvaluator();
+    export class BattleController {
+        private handEvaluator : HandEvaluator;
 
-        battleCtrl.helloWorld = "Hello World";
-        battleCtrl.entities = battleEntitiesService.entities;
+        helloWorld : string;
+        entities : EntityInBattle[];
+        deck : Card[];
 
-        battleEntitiesService.addEntity(new Entity());
-        battleCtrl.deck = deckService.buildDeck();
+        static $inject = [
+            "battleEntitiesService",
+            "deckService"
+        ];
 
-        battleCtrl.hit = (entity : EntityInBattle) => {
-            var handScore = handEvaluator.evaluate(entity.hand);
+        constructor(private battleEntitiesService, private deckService) {
+            this.handEvaluator = new HandEvaluator();
+
+            this.helloWorld = "Hello World";
+            this.entities = battleEntitiesService.entities;
+
+            battleEntitiesService.addEntity(new Entity());
+            this.deck = deckService.buildDeck();
+        }
+
+        hit(entity : EntityInBattle) {
+            var handScore = this.handEvaluator.evaluate(entity.hand);
             if (handScore > 0 && handScore < 21 && !entity.standing) {
-                entity.hand.add(battleCtrl.deck.pop());
+                entity.hand.add(this.deck.pop());
                 return true;
             }
             return false;
-        };
+        }
 
-        battleCtrl.stand = (entity : EntityInBattle) => {
+        stand (entity : EntityInBattle) {
             entity.standing = true;
 
             // Check if everyone has stood yet -- if so, let's continue.
             var allStanding = true;
-            battleCtrl.entities.forEach((entity : EntityInBattle) => {
+            this.entities.forEach((entity : EntityInBattle) => {
                 if (!entity.standing) {
                     allStanding = false;
                 }
@@ -71,41 +83,42 @@ module battlejack {
                 return;
             }
 
-            finishRound();
-        };
+            this.finishRound();
+        }
 
-        battleCtrl.deal = () => {
-            battleCtrl.deck = deckService.buildDeck();
-            battleCtrl.entities.forEach((entity : EntityInBattle) => {
+        deal() {
+            this.deck = this.deckService.buildDeck();
+            this.entities.forEach((entity : EntityInBattle) => {
                 // TODO: Add error checking for all deck pops.
                 entity.hand.clear();
                 entity.standing = false;
-                entity.hand.add(battleCtrl.deck.pop());
-                entity.hand.add(battleCtrl.deck.pop());
+                entity.hand.add(this.deck.pop());
+                entity.hand.add(this.deck.pop());
             });
-        };
+        }
 
-        battleCtrl.testAddEntity = () => {
-            battleEntitiesService.addEntity(new Entity());
-        };
+        testAddEntity() {
+            this.battleEntitiesService.addEntity(new Entity());
+        }
 
-        battleCtrl.getScore = (entity : EntityInBattle) => {
-            return handEvaluator.evaluate(entity.hand);
-        };
+        getScore(entity : EntityInBattle) {
+            console.log(entity);
+            return this.handEvaluator.evaluate(entity.hand);
+        }
 
-        var finishRound = () => {
+        private finishRound() {
             var maxHandScore = -1;
             var maxEntity;
-            battleCtrl.entities.forEach((entity : EntityInBattle) => {
-                var handScore = handEvaluator.evaluate(entity.hand);
+            this.entities.forEach((entity : EntityInBattle) => {
+                var handScore = this.handEvaluator.evaluate(entity.hand);
                 if (handScore > maxHandScore) {
                     maxHandScore = handScore;
                     maxEntity = entity;
                 }
             });
             console.log(maxEntity, " wins!");
-            battleCtrl.deal();
-        };
+            this.deal();
+        }
     }
 
 }

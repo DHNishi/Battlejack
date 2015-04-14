@@ -4,14 +4,8 @@
 
 /// <reference path="../_all.ts"/>
 module battlejack {
-    export function makeDeckService() {
-        // TODO: Maybe turn this into its own class?
-        var service : any = {};
-
-        /**
-         * Generates a new deck of cards in sorted order.
-         */
-        var buildDeck = () => {
+    export class DeckService {
+        private generateDeck() {
             var deck = [];
             var TWO = Rank.TWO.valueOf();
 
@@ -26,14 +20,10 @@ module battlejack {
                 }
             }
             return deck;
-        };
+        }
 
-        /**
-         * Builds a shuffled deck of cards.
-         * @returns {Card[]} A shuffled deck of cards.
-         */
-        service.buildDeck = () => {
-            var deck : Card[] = buildDeck();
+        buildDeck() {
+            var deck : Card[] = this.generateDeck();
             var count = deck.length;
 
             while (count > 0) {
@@ -47,9 +37,7 @@ module battlejack {
                 deck[index] = temp;
             }
             return deck;
-        };
-
-        return service;
+        }
     }
 
 }

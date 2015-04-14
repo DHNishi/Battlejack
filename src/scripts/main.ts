@@ -6,7 +6,7 @@
 
 module battlejack {
     var app = angular.module('blackjackApp', [])
-        .factory('deckService', makeDeckService)
-        .factory('battleEntitiesService', makeBattleEntitiesService)
+        .service('deckService', DeckService)
+        .service('battleEntitiesService', BattleEntitiesService)
         .controller("BattleController", ["battleEntitiesService", "deckService", BattleController]);
 }
