@@ -27,7 +27,8 @@ module battlejack {
 
     export class EntityInBattle implements IEntity {
         hand : Hand;
-        standing : boolean;
+        standing : boolean; // has stood with Blackjack hand.
+        ready : boolean; // has moved this round.
 
         // Entity
         entity : Entity;
@@ -44,6 +45,16 @@ module battlejack {
 
         getAC() {
             return this.entity.getAC();
+        }
+
+        getStats() {
+            return this.entity.stats;
+        }
+
+        resetForRound() {
+            this.hand.clear();
+            this.standing = false;
+            this.ready = false;
         }
     }
 

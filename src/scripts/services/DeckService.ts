@@ -5,7 +5,7 @@
 /// <reference path="../_all.ts"/>
 module battlejack {
     export class DeckService {
-        private generateDeck() {
+        protected generateDeck() {
             var deck = [];
             var TWO = Rank.TWO.valueOf();
 
