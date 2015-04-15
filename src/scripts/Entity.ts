@@ -51,6 +51,27 @@ module battlejack {
             return this.entity.stats;
         }
 
+        // TODO: Make this into something smarter, better.
+        attack(target : EntityInBattle) {
+            var action = new BattleAction;
+            action.entity = this;
+            action.targets = [target];
+            action.priority = 0;
+            action.mutateTargets = (targets : EntityInBattle[], self : EntityInBattle) => {
+                targets.forEach((target) => {
+                    if (BattleEvaluator.doesAttackHit(self, target)) {
+                        var damage = BattleEvaluator.getAttackDamageDealt(self.hand, 10);
+                        target.getStats().hp -= damage;
+                        console.log("Attack lands for ", damage);
+                    }
+                    else {
+                        console.log("Attack misses!");
+                    }
+                });
+            }
+            return action;
+        }
+
         resetForRound() {
             this.hand.clear();
             this.standing = false;

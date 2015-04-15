@@ -95,7 +95,6 @@ module battlejack {
             this.entities.forEach((entity) => {
                 // TODO: Replace with incapacitated.
                 // TODO: Make this check sides.
-                console.log(entity.getStats().hp);
                 if (entity.getStats().hp <= 0) {
                     isDone = true;
                 }

@@ -32,86 +32,31 @@
 
 module battlejack {
     export class BattleController {
-        private handEvaluator : HandEvaluator;
-
         helloWorld : string;
         entities : EntityInBattle[];
         deck : Card[];
+        private system : BattleSystem;
 
-        static $inject = [
-            "battleEntitiesService",
-            "deckService"
-        ];
-
-        constructor(private battleEntitiesService, private deckService) {
-            this.handEvaluator = new HandEvaluator();
-
+        constructor() {
             this.helloWorld = "Hello World";
-            this.entities = battleEntitiesService.entities;
-
-            battleEntitiesService.addEntity(new Entity());
-            this.deck = deckService.buildDeck();
-        }
-
-        hit(entity : EntityInBattle) {
-            var handScore = this.handEvaluator.evaluate(entity.hand);
-            if (handScore > 0 && handScore < 21 && !entity.standing) {
-                entity.hand.add(this.deck.pop());
-                return true;
-            }
-            return false;
-        }
-
-        stand (entity : EntityInBattle) {
-            entity.standing = true;
-
-            // Check if everyone has stood yet -- if so, let's continue.
-            var allStanding = true;
-            this.entities.forEach((entity : EntityInBattle) => {
-                if (!entity.standing) {
-                    allStanding = false;
-                }
-            });
-
-            if (!allStanding) {
-                return;
-            }
-
-            this.finishRound();
+            this.system = new BattleSystem([]);
+            this.entities = this.system.entities;
+            this.deck = this.system.getDeckForTesting();
         }
 
         deal() {
-            this.deck = this.deckService.buildDeck();
-            this.entities.forEach((entity : EntityInBattle) => {
-                // TODO: Add error checking for all deck pops.
-                entity.hand.clear();
-                entity.standing = false;
-                entity.hand.add(this.deck.pop());
-                entity.hand.add(this.deck.pop());
-            });
+            this.system.initializeRound();
         }
 
         testAddEntity() {
-            this.battleEntitiesService.addEntity(new Entity());
+            this.system.entities.push(new EntityInBattle(new Entity, new Hand([])));
         }
 
-        getScore(entity : EntityInBattle) {
-            console.log(entity);
-            return this.handEvaluator.evaluate(entity.hand);
-        }
-
-        private finishRound() {
-            var maxHandScore = -1;
-            var maxEntity;
-            this.entities.forEach((entity : EntityInBattle) => {
-                var handScore = this.handEvaluator.evaluate(entity.hand);
-                if (handScore > maxHandScore) {
-                    maxHandScore = handScore;
-                    maxEntity = entity;
-                }
-            });
-            console.log(maxEntity, " wins!");
-            this.deal();
+        gogogo() {
+            if (this.system.readyToReconcileActions()) {
+                this.system.reconcileActions();
+                this.system.endOfRoundCleanUp();
+            }
         }
     }
 

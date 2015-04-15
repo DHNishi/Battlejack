@@ -38,7 +38,6 @@ module battlejack {
             // Sort a copy of the list before evaluating to not mutate the parent.
             hand.cards.slice().sort(Card.compareTo).forEach((card) => {
                 var cardValue;
-                console.log(card.rank);
                 switch(card.rank) {
                     case Rank.JACK:
                     case Rank.QUEEN:
@@ -59,7 +58,6 @@ module battlejack {
 
                 sum += cardValue;
             });
-            console.log(sum);
 
             return sum;
         }
