@@ -55,10 +55,10 @@ module battlejack {
                 new EntityInBattle(new Entity, new Hand([]))
             ];
 
-            battleSystem = new BattleSystem(entities);
+            battleSystem = new BattleSystem(entities, []);
         });
         it("Battle system constructs properly.", () => {
-            expect(battleSystem.entities).toBe(entities);
+            expect(battleSystem.allies).toEqual(entities);
         });
 
         it("Battle system begins each round with a fresh deck and dealt cards", () => {
@@ -133,7 +133,7 @@ module battlejack {
             battleSystem.enqueueAction(firstAction);
             battleSystem.enqueueAction(tiedForFirst);
             battleSystem.enqueueAction(thirdAction);
-            battleSystem.reconcileActions();
+            battleSystem.reconcileAllActions();
         });
 
         it("Battle system cleans all hands and actions at end of round", () => {
@@ -142,7 +142,7 @@ module battlejack {
 
             // Add an action.
             battleSystem.enqueueAction(new FakeAction());
-            battleSystem.reconcileActions();
+            battleSystem.reconcileAllActions();
 
             battleSystem.endOfRoundCleanUp();
             entities.forEach((entity) => {
@@ -150,13 +150,15 @@ module battlejack {
             });
 
             // If the FakeAction was unqueued, this shouldn't fail.
-            battleSystem.reconcileActions();
+            battleSystem.reconcileAllActions();
         });
 
         // TODO: Change this to be real.
-        it("Battle system ends if someone is dead.", () => {
+        it("Battle system ends if one side is dead.", () => {
             expect(battleSystem.isBattleOver()).toBe(false);
-            entities[0].getStats().hp = 0;
+            entities.forEach(entity => {
+              entity.getStats().hp = 0;
+            });
             expect(battleSystem.isBattleOver()).toBe(true);
         });
     });

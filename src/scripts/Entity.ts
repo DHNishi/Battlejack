@@ -68,7 +68,7 @@ module battlejack {
                         console.log("Attack misses!");
                     }
                 });
-            }
+            };
             return action;
         }
 

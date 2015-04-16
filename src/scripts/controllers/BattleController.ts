@@ -39,7 +39,7 @@ module battlejack {
 
         constructor() {
             this.helloWorld = "Hello World";
-            this.system = new BattleSystem([]);
+            this.system = new BattleSystem([], []);
             this.entities = this.system.entities;
             this.deck = this.system.getDeckForTesting();
         }
@@ -52,11 +52,27 @@ module battlejack {
             this.system.entities.push(new EntityInBattle(new Entity, new Hand([])));
         }
 
+        testAddAlly() {
+            var newAlly = new EntityInBattle(new Entity, new Hand([]));
+            this.system.allies.push(newAlly);
+            this.system.entities.push(newAlly);
+        }
+
+        testAddEnemy() {
+            var newEnemy = new EntityInBattle(new Entity, new Hand([]));
+            this.system.enemies.push(newEnemy);
+            this.system.entities.push(newEnemy);
+        }
+
         gogogo() {
             if (this.system.readyToReconcileActions()) {
-                this.system.reconcileActions();
+                this.system.reconcileAllActions();
                 this.system.endOfRoundCleanUp();
             }
+        }
+
+        isOver() {
+            return this.system.isBattleOver();
         }
     }
 

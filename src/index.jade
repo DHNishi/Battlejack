@@ -19,13 +19,20 @@ html(ng-app="blackjackApp")
         div(ng-controller="BattleController as battle")
             h2 Hello {{battle.helloWorld}}
             button(ng-click="battle.deal()") Deal
-            button(ng-click="battle.testAddEntity()") Add Entity
+            button(ng-click="battle.testAddAlly()") Add Ally
+            button(ng-click="battle.testAddEnemy()") Add Enemy
             button(ng-click="battle.gogogo()") Gogogo
-            div(ng-repeat="entity in battle.entities")
+            div {{battle.isOver()}}
+            div(ng-repeat="entity in battle.system.allies")
                 div {{entity}}
                 button(ng-click="battle.system.hit(entity)") Hit
                 button(ng-click="battle.system.stand(entity)") Stand
-                div(ng-repeat="target in battle.entities")
+                div(ng-repeat="target in battle.system.enemies")
                     button(ng-click="battle.system.enqueueAction(entity.attack(target))") Attack
-            div(ng-repeat="card in battle.deck")
-                div Hello {{card}}
+            div Enemies
+            div(ng-repeat="entity in battle.system.enemies")
+                div {{entity}}
+                button(ng-click="battle.system.hit(entity)") Hit
+                button(ng-click="battle.system.stand(entity)") Stand
+                div(ng-repeat="target in battle.system.allies")
+                    button(ng-click="battle.system.enqueueAction(entity.attack(target))") Attack

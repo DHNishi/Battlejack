@@ -8,14 +8,18 @@ module battlejack {
     // Battle system contains a single battle with entities.
     export class BattleSystem {
         entities : EntityInBattle[];
+        allies : EntityInBattle[];
+        enemies : EntityInBattle[];
         private deck : Card[];
         private roundActions : BattleAction[];
         private handEvaluator : HandEvaluator;
         deckService : DeckService;
 
-        constructor(entities : EntityInBattle[]) {
+        constructor(allies : EntityInBattle[], enemies : EntityInBattle[]) {
             this.handEvaluator = new HandEvaluator();
-            this.entities = entities;
+            this.allies = allies;
+            this.enemies = enemies;
+            this.entities = allies.concat(enemies);
             this.roundActions = [];
             this.deck = [];
             this.deckService = new DeckService();
@@ -61,7 +65,7 @@ module battlejack {
             return isReady;
         }
 
-        reconcileActions() {
+        reconcileAllActions() {
             // Sort actions -- highest priorities go first.
             this.roundActions.sort((a : BattleAction, b : BattleAction) => {
                 var aKey = a.priority;
@@ -91,17 +95,24 @@ module battlejack {
         }
 
         isBattleOver() {
-            var isDone = false;
-            this.entities.forEach((entity) => {
-                // TODO: Replace with incapacitated.
-                // TODO: Make this check sides.
-                if (entity.getStats().hp <= 0) {
-                    isDone = true;
+            var alliesDead = true;
+            this.allies.forEach((entity) => {
+                if (entity.getStats().hp > 0) {
+                    alliesDead = false;
                 }
             });
-            return isDone;
-        }
+            if (alliesDead == true) {
+                return true;
+            }
 
+            var enemiesDead = true;
+            this.enemies.forEach((entity) => {
+                if (entity.getStats().hp > 0) {
+                    enemiesDead = false;
+                }
+            });
+            return enemiesDead;
+        }
 
         /**
          * TESTING FUNCTIONS BELOW
