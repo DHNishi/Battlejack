@@ -15,6 +15,9 @@ module battlejack {
         private handEvaluator : HandEvaluator;
         deckService : DeckService;
 
+        nextAlly : EntityInBattle;
+        isBlackjack : boolean;
+
         constructor(allies : EntityInBattle[], enemies : EntityInBattle[]) {
             this.handEvaluator = new HandEvaluator();
             this.allies = allies;
@@ -27,8 +30,10 @@ module battlejack {
 
         initializeRound() {
             // Get a randomized deck.
+            this.isBlackjack = false;
             this.deck = this.deckService.buildDeck();
             this.blackjackDraw();
+            this.getNextAllyForAction();
         }
 
         private blackjackDraw() {
@@ -112,6 +117,45 @@ module battlejack {
                 }
             });
             return enemiesDead;
+        }
+
+        /**
+         * Battle flow functions below.
+         */
+
+        getNextAllyForAction() {
+            var nextAlly = undefined;
+            this.allies.forEach(entity => {
+                if (entity.ready !== true) {
+                    nextAlly = entity;
+                }
+            });
+            this.nextAlly = nextAlly;
+        }
+
+        getNextAllyForBlackjack() {
+            var nextAlly = undefined;
+            this.allies.forEach(entity => {
+                if (entity.standing !== true) {
+                    nextAlly = entity;
+                }
+            });
+            this.nextAlly = nextAlly;
+        }
+
+        hitSelected() {
+            this.hit(this.nextAlly);
+        }
+
+        standSelected() {
+            this.stand(this.nextAlly);
+            this.getNextAllyForBlackjack();
+            if (typeof this.nextAlly == "undefined") {
+                this.reconcileAllActions();
+                this.endOfRoundCleanUp();
+                this.initializeRound();
+                this.isBlackjack = false;
+            }
         }
 
         /**

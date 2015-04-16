@@ -4,17 +4,35 @@
 div.game(ng-controller="BattleController as battle")
    div.battle
       div.battle-pane
-         div Enemies!
+         div(ng-repeat="entity in battle.system.enemies")
+             a(ng-click="battle.clickedEntity(entity)") {{entity}}
       div.command-window
          div.actions.col-md-4
-            div Attack
-            div Spell
-            div Defend
+            // Need to iterate through all options for the player here.
+            div
+               button(ng-click="battle.allyAttack()", ng-hide="battle.system.isBlackjack") Attack
+            div
+               button(ng-click="battle.allyHit()", ng-show="battle.system.isBlackjack") Hit
+            div
+               button(ng-click="battle.allyStand()", ng-show="battle.system.isBlackjack") Stand
+            div
+               button Spell
+            div
+               button Item
+            div
+               button Defend
+            div
+               button(ng-click="battle.testAddAlly()") Add Ally
+            div
+               button(ng-click="battle.testAddEnemy()") Add Enemy
+            div
+               button(ng-click="battle.deal()") Deal
          div.allies.col-md-8
-               div.ally Herro
-               div.ally Herro!
-               div.ally Herro
-               div.ally Herro!
+               // Need to iterate through all allies.
+               div(ng-repeat="entity in battle.system.allies")
+                   div.ally
+                      span(ng-show="battle.getCurrentEntity() === entity") >
+                      span {{entity}}
    //h2 Hello {{battle.helloWorld}}
    //button(ng-click="battle.deal()") Deal
    //button(ng-click="battle.testAddAlly()") Add Ally

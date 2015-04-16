@@ -35,17 +35,62 @@ module battlejack {
         helloWorld : string;
         entities : EntityInBattle[];
         deck : Card[];
+        isBlackjack : boolean;
         private system : BattleSystem;
+        private onEntitySelected;
 
         constructor() {
             this.helloWorld = "Hello World";
             this.system = new BattleSystem([], []);
             this.entities = this.system.entities;
             this.deck = this.system.getDeckForTesting();
+            this.isBlackjack = false;
         }
 
         deal() {
             this.system.initializeRound();
+        }
+
+        clickedEntity(entity) {
+            console.log(entity);
+            this.onEntitySelected(entity);
+            this.onEntitySelected = undefined;
+        }
+
+        getCurrentEntity() {
+            return this.system.nextAlly;
+        }
+
+
+        /*
+            ACTION SELECTORS
+         */
+
+        /**
+         * Sets up everything to be good on selection.
+         */
+        allyAttack() {
+            this.onEntitySelected = entity => {
+                var currentEntity = this.getCurrentEntity();
+                this.system.enqueueAction(currentEntity.attack(entity));
+                currentEntity.ready = true;
+                this.system.getNextAllyForAction();
+                // If we're out of allies, need to continue.
+                if (typeof this.getCurrentEntity() == "undefined") {
+                    // Begin Blackjack phase.
+                    console.log("BLACKJACK");
+                    this.system.isBlackjack = true;
+                    this.system.getNextAllyForBlackjack();
+                }
+            }
+        }
+
+        allyHit() {
+            this.system.hitSelected();
+        }
+
+        allyStand() {
+            this.system.standSelected();
         }
 
         testAddEntity() {
