@@ -2,6 +2,8 @@
  * Created by dhnishi on 4/13/15.
  */
 /// <reference path="../../typings/angularjs/angular.d.ts"/>
+/// <reference path="../../typings/angularjs/angular-route.d.ts"/>
+
 
 /// <reference path="BattleEvaluator.ts"/>
 /// <reference path="Card.ts"/>

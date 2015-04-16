@@ -1,7 +1,15 @@
 doctype html
 html(ng-app="blackjackApp")
     head
+        title Battlejack
+        link(rel='stylesheet', href='css/battlejack.css')
+        link(rel='stylesheet', href='../bower_components/bootstrap/dist/css/bootstrap.css')
+    body
+        div(ng-view)
+        script(src="../bower_components/jquery/dist/jquery.js")
+        script(src="../bower_components/bootstrap/dist/js/bootstrap.js")
         script(src="../node_modules/angular/angular.js")
+        script(src="../bower_components/angular-route/angular-route.js")
         script(src="scripts/Entity.js")
         script(src="scripts/Card.js")
         script(src="scripts/Hand.js")
@@ -13,26 +21,3 @@ html(ng-app="blackjackApp")
         script(src="scripts/services/DeckService.js")
         script(src="scripts/controllers/BattleController.js")
         script(src="scripts/main.js")
-    body
-        div Hello World
-        div {{2 + 5}}
-        div(ng-controller="BattleController as battle")
-            h2 Hello {{battle.helloWorld}}
-            button(ng-click="battle.deal()") Deal
-            button(ng-click="battle.testAddAlly()") Add Ally
-            button(ng-click="battle.testAddEnemy()") Add Enemy
-            button(ng-click="battle.gogogo()") Gogogo
-            div {{battle.isOver()}}
-            div(ng-repeat="entity in battle.system.allies")
-                div {{entity}}
-                button(ng-click="battle.system.hit(entity)") Hit
-                button(ng-click="battle.system.stand(entity)") Stand
-                div(ng-repeat="target in battle.system.enemies")
-                    button(ng-click="battle.system.enqueueAction(entity.attack(target))") Attack
-            div Enemies
-            div(ng-repeat="entity in battle.system.enemies")
-                div {{entity}}
-                button(ng-click="battle.system.hit(entity)") Hit
-                button(ng-click="battle.system.stand(entity)") Stand
-                div(ng-repeat="target in battle.system.allies")
-                    button(ng-click="battle.system.enqueueAction(entity.attack(target))") Attack

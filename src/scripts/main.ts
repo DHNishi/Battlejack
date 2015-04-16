@@ -5,8 +5,17 @@
 /// <reference path="_all.ts"/>
 
 module battlejack {
-    var app = angular.module('blackjackApp', [])
+    var app = angular.module('blackjackApp', ['ngRoute'])
         .service('deckService', DeckService)
         .service('battleEntitiesService', BattleEntitiesService)
-        .controller("BattleController", ["battleEntitiesService", "deckService", BattleController]);
+        .controller("BattleController", ["battleEntitiesService", "deckService", BattleController])
+        .config(['$routeProvider', ($routeProvider) => {
+            $routeProvider.
+                when('/battle', {
+                    templateUrl: 'partials/battle.html'
+                }).
+                otherwise({
+                    redirectTo: '/battle'
+                })
+        }]);
 }
