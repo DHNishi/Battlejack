@@ -9,10 +9,14 @@ module battlejack {
         .service('deckService', DeckService)
         .service('battleEntitiesService', BattleEntitiesService)
         .controller("BattleController", ["battleEntitiesService", "deckService", BattleController])
+        .controller("CharacterCreationController", [CharacterCreationController])
         .config(['$routeProvider', ($routeProvider) => {
             $routeProvider.
                 when('/battle', {
                     templateUrl: 'partials/battle.html'
+                }).
+                when('/character-creation', {
+                    templateUrl: "partials/character-creation.html"
                 }).
                 otherwise({
                     redirectTo: '/battle'

@@ -1,0 +1,18 @@
+//
+   Created by dhnishi on 4/17/15.
+
+div.game(ng-controller="CharacterCreationController as create")
+   form
+      div.form-group
+         label(for="characterName") Character Name
+         input.form-control(id="characterNameInput" placeholder="Daniel" ng-model="create.name")
+      div
+         div Points remaining: {{create.getPointsRemaining()}}
+      div(ng-repeat="stat in create.stats")
+         span {{stat.name}}
+         a.btn.btn-default(ng-click="create.incrementStat(stat)") +
+         span {{stat.getStat()}}
+         a.btn.btn-default(ng-click="create.decrementStat(stat)") -
+      a.btn.btn-default(ng-click="create.createCharacter()") Create!
+      div Output!
+         div#new-character {{create.character}}

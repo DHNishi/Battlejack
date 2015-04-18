@@ -10,9 +10,11 @@ module battlejack {
     }
 
     export class Entity implements IEntity {
+        name : string;
         stats : StatBlock;
 
-        constructor() {
+        constructor(name? : string) {
+            this.name = name;
             this.stats = new StatBlock();
         }
 
@@ -79,19 +81,87 @@ module battlejack {
         }
     }
 
+    export enum Stat {
+        STRENGTH,
+        DEXTERITY,
+        CONSTITUTION,
+        INTELLIGENCE,
+        LUCK
+    }
+
     export class StatBlock {
         static BASE_STAT = 10;
 
         hp : number;
         mp : number;
         strength : number;
+        dexterity : number;
+        constitution : number;
+        intelligence : number;
+        luck : number;
         ac : number; // armor class
 
         constructor() {
             this.hp = StatBlock.BASE_STAT;
             this.mp = StatBlock.BASE_STAT;
             this.strength = StatBlock.BASE_STAT;
+            this.dexterity = StatBlock.BASE_STAT;
+            this.constitution = StatBlock.BASE_STAT;
+            this.intelligence = StatBlock.BASE_STAT;
+            this.luck = StatBlock.BASE_STAT;
             this.ac = StatBlock.BASE_STAT;
+        }
+
+        static getStatName(stat) {
+            switch(Stat[stat]) {
+                case Stat.STRENGTH.valueOf():
+                    return "Strength";
+                case Stat.DEXTERITY.valueOf():
+                    return "Dexterity";
+                case Stat.CONSTITUTION.valueOf():
+                    return "Constitution";
+                case Stat.INTELLIGENCE.valueOf():
+                    return "Intelligence";
+                case Stat.LUCK.valueOf():
+                    return "Luck";
+            }
+            return "";
+        }
+
+        getStat(stat : Stat) {
+            switch(Stat[stat]) {
+                case Stat.STRENGTH.valueOf():
+                    return this.strength;
+                case Stat.DEXTERITY.valueOf():
+                    return this.dexterity;
+                case Stat.CONSTITUTION.valueOf():
+                    return this.constitution;
+                case Stat.INTELLIGENCE.valueOf():
+                    return this.intelligence;
+                case Stat.LUCK.valueOf():
+                    return this.luck;
+            }
+            return -1;
+        }
+
+        setStat(stat : Stat, value : number) {
+            switch(Stat[stat]) {
+                case Stat.STRENGTH.valueOf():
+                    this.strength = value;
+                    break;
+                case Stat.DEXTERITY.valueOf():
+                    this.dexterity = value;
+                    break;
+                case Stat.CONSTITUTION.valueOf():
+                    this.constitution = value;
+                    break;
+                case Stat.INTELLIGENCE.valueOf():
+                    this.intelligence = value;
+                    break;
+                case Stat.LUCK.valueOf():
+                    this.luck = value;
+                    break;
+            }
         }
     }
 

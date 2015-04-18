@@ -7,12 +7,14 @@
 
 /// <reference path="BattleEvaluator.ts"/>
 /// <reference path="Card.ts"/>
+/// <reference path="CharacterCreator.ts"/>
 /// <reference path="Entity.ts"/>
 /// <reference path="Hand.ts"/>
 /// <reference path="HandEvaluator.ts"/>
 /// <reference path="BattleAction.ts"/>
 /// <reference path="BattleSystem.ts"/>
 /// <reference path="controllers/BattleController.ts"/>
+/// <reference path="controllers/CharacterCreationController.ts"/>
 /// <reference path="services/BattleEntitiesService.ts"/>
 /// <reference path="services/DeckService.ts"/>
 
