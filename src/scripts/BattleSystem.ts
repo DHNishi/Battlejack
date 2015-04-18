@@ -9,7 +9,7 @@ module battlejack {
     export class BattleSystem {
         entities : EntityInBattle[];
         allies : EntityInBattle[];
-        enemies : EntityInBattle[];
+        enemies : CPUEntityInBattle[];
         private deck : Card[];
         private roundActions : BattleAction[];
         private handEvaluator : HandEvaluator;
@@ -18,7 +18,7 @@ module battlejack {
         nextAlly : EntityInBattle;
         isBlackjack : boolean;
 
-        constructor(allies : EntityInBattle[], enemies : EntityInBattle[]) {
+        constructor(allies : EntityInBattle[], enemies : CPUEntityInBattle[]) {
             this.handEvaluator = new HandEvaluator();
             this.allies = allies;
             this.enemies = enemies;
@@ -151,11 +151,19 @@ module battlejack {
             this.stand(this.nextAlly);
             this.getNextAllyForBlackjack();
             if (typeof this.nextAlly == "undefined") {
+                this.getAIActions();
                 this.reconcileAllActions();
                 this.endOfRoundCleanUp();
                 this.initializeRound();
                 this.isBlackjack = false;
             }
+        }
+
+        getAIActions() {
+            this.enemies.forEach((enemy) => {
+                enemy.chooseActions(this);
+                enemy.playBlackjack(this);
+            });
         }
 
         /**

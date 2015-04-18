@@ -17,5 +17,6 @@
 /// <reference path="controllers/CharacterCreationController.ts"/>
 /// <reference path="services/BattleEntitiesService.ts"/>
 /// <reference path="services/DeckService.ts"/>
+/// <reference path="services/PlayerEntityService.ts"/>
 
 /// <reference path="main.ts"/>

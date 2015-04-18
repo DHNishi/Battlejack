@@ -165,4 +165,50 @@ module battlejack {
         }
     }
 
+    export class CPUEntityInBattle extends EntityInBattle {
+
+        handEvaluator : HandEvaluator;
+
+        constructor(entity : Entity, hand : Hand, handEvaluator? : HandEvaluator) {
+            super(entity, hand);
+            this.handEvaluator = handEvaluator;
+            if (typeof this.handEvaluator == "undefined") {
+                this.handEvaluator = new HandEvaluator();
+            }
+        }
+
+        chooseActions (system : BattleSystem) {
+            // Choose a target.
+            var target;
+            // TODO: Make this system more robust.
+            system.allies.forEach((ally) => {
+                if (ally.getStats().hp > 0) {
+                    target = ally;
+                }
+            });
+
+            // Make an action.
+            if (typeof target != "undefined") {
+                system.enqueueAction(this.attack(target));
+                this.ready = true;
+            }
+        }
+
+        playBlackjack (system : BattleSystem) {
+            var currentValue = this.handEvaluator.evaluate(this.hand);
+
+            // Bust check.
+            if (currentValue === 0) {
+                system.stand(this);
+            }
+
+            if (currentValue >= 17) {
+                system.stand(this);
+            }
+            else {
+                system.hit(this);
+                this.playBlackjack(system);
+            }
+        }
+    }
 }

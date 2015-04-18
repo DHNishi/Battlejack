@@ -155,6 +155,7 @@ module battlejack {
 
         // TODO: Change this to be real.
         it("Battle system ends if one side is dead.", () => {
+            battleSystem.enemies.push(new CPUEntityInBattle(new Entity, new Hand([])));
             expect(battleSystem.isBattleOver()).toBe(false);
             entities.forEach(entity => {
               entity.getStats().hp = 0;

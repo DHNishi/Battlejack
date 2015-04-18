@@ -104,7 +104,7 @@ module battlejack {
         }
 
         testAddEnemy() {
-            var newEnemy = new EntityInBattle(new Entity, new Hand([]));
+            var newEnemy = new CPUEntityInBattle(new Entity, new Hand([]));
             this.system.enemies.push(newEnemy);
             this.system.entities.push(newEnemy);
         }
