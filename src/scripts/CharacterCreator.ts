@@ -11,15 +11,15 @@ module battlejack {
         POINT_BUY_COSTS = {
             8: 1,
             9: 1,
-            10: 2,
-            11: 3,
-            12: 4,
-            13: 5,
-            14: 6,
-            15: 8,
-            16: 10,
-            17: 13,
-            18: 16
+            10: 1,
+            11: 1,
+            12: 1,
+            13: 2,
+            14: 2,
+            15: 3,
+            16: 3,
+            17: 4,
+            18: 4
         };
         MIN_STAT = 8;
         MAX_STAT = 18;
@@ -31,7 +31,7 @@ module battlejack {
 
         incrementStat(stat : Stat) {
             var currentValue = this.stats.getStat(stat);
-            var cost = this.POINT_BUY_COSTS[currentValue]
+            var cost = this.POINT_BUY_COSTS[currentValue];
 
             if (cost > this.pointsRemaining) {
                 return;
@@ -55,9 +55,7 @@ module battlejack {
         createCharacter(name : string) {
             var newEntity = new Entity(name);
             newEntity.stats = this.stats;
-            console.log(newEntity);
             return newEntity;
         }
-
     }
 }
