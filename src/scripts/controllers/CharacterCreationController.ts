@@ -9,11 +9,13 @@ module battlejack {
         creator : CharacterCreator;
         character : Entity;
         name : string;
+        private playerService : PlayerEntityService;
 
-        constructor() {
+        constructor(playerEntityService : PlayerEntityService) {
             // Iterate every the stat block.
             this.stats = [];
             this.creator = new CharacterCreator();
+            this.playerService = playerEntityService;
             console.log(Stat);
             for (var val in Stat) {
                 if (isNaN(val)) {
@@ -39,6 +41,7 @@ module battlejack {
 
         createCharacter() {
             this.character = this.creator.createCharacter(this.name);
+            this.playerService.addEntity(this.character);
         }
 
     }

@@ -39,9 +39,9 @@ module battlejack {
         private system : BattleSystem;
         private onEntitySelected;
 
-        constructor() {
+        constructor(battleEntitiesService : BattleEntitiesService, playerEntityService : PlayerEntityService, deckService : DeckService) {
             this.helloWorld = "Hello World";
-            this.system = new BattleSystem([], []);
+            this.system = new BattleSystem(playerEntityService.entities.map((entity) => {return new EntityInBattle(entity, new Hand([]))}), battleEntitiesService.entities);
             this.entities = this.system.entities;
             this.deck = this.system.getDeckForTesting();
             this.isBlackjack = false;

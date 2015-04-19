@@ -14,6 +14,7 @@ module battlejack {
 
         addEntity(entity : Entity) {
             this.entities.push(entity);
+            console.log("PlayerEntityService", this.entities);
         }
     }
 }

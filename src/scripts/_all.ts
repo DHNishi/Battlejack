@@ -4,7 +4,7 @@
 /// <reference path="../../typings/angularjs/angular.d.ts"/>
 /// <reference path="../../typings/angularjs/angular-route.d.ts"/>
 
-
+/// <reference path="ArenaBattleFactory.ts"/>
 /// <reference path="BattleEvaluator.ts"/>
 /// <reference path="Card.ts"/>
 /// <reference path="CharacterCreator.ts"/>
@@ -13,6 +13,7 @@
 /// <reference path="HandEvaluator.ts"/>
 /// <reference path="BattleAction.ts"/>
 /// <reference path="BattleSystem.ts"/>
+/// <reference path="controllers/ArenaMenuController.ts"/>
 /// <reference path="controllers/BattleController.ts"/>
 /// <reference path="controllers/CharacterCreationController.ts"/>
 /// <reference path="services/BattleEntitiesService.ts"/>

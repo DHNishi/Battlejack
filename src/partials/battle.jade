@@ -27,6 +27,8 @@ div.game(ng-controller="BattleController as battle")
                button(ng-click="battle.testAddEnemy()") Add Enemy
             div
                button(ng-click="battle.deal()") Deal
+            div
+               a(href="#/character-creation") Lol
          div.allies.col-md-8
                // Need to iterate through all allies.
                div(ng-repeat="entity in battle.system.allies")

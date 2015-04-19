@@ -195,19 +195,19 @@ module battlejack {
         }
 
         playBlackjack (system : BattleSystem) {
-            var currentValue = this.handEvaluator.evaluate(this.hand);
+            while (this.standing == false) {
+                // Bust check.
+                var currentValue = this.handEvaluator.evaluate(this.hand);
+                if (currentValue <= 0) {
+                    system.stand(this);
+                }
 
-            // Bust check.
-            if (currentValue === 0) {
-                system.stand(this);
-            }
-
-            if (currentValue >= 17) {
-                system.stand(this);
-            }
-            else {
-                system.hit(this);
-                this.playBlackjack(system);
+                if (currentValue >= 17) {
+                    system.stand(this);
+                }
+                else {
+                    system.hit(this);
+                }
             }
         }
     }

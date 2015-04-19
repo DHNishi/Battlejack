@@ -6,7 +6,7 @@
 
 module battlejack {
     export class BattleEntitiesService {
-        entities : EntityInBattle[];
+        entities : CPUEntityInBattle[];
 
         constructor() {
             this.entities = [];
@@ -17,7 +17,7 @@ module battlejack {
         }
 
         addEntity(entity : Entity) {
-            var newEntity = new EntityInBattle(entity, new Hand([]));
+            var newEntity = new CPUEntityInBattle(entity, new Hand([]));
             this.entities.push(newEntity);
         }
     }
