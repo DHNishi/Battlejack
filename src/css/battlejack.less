@@ -1,3 +1,5 @@
+@charset "utf-8";
+
 .game {
   width: 960px;
   height: 640px;
@@ -16,5 +18,82 @@
         height: 25%;
       }
     }
+  }
+}
+
+.card {
+  display: inline-block;
+  .suit, .rank {
+    display: inline-block;
+  }
+  .suit {
+    margin-right: 2px;
+  }
+  .rank {
+    margin-right: 5px;
+  }
+  .CLUBS:after {
+    content: "♣";
+  }
+  .HEARTS:after {
+    color: red;
+    content: "♥";
+  }
+  .SPADES:after {
+    content: "♠";
+  }
+  .DIAMONDS:after {
+    color: red;
+    content: "♦";
+  }
+  .TWO:after {
+    content: "2";
+  }
+  .THREE:after {
+    content: "3";
+
+  }
+  .FOUR:after {
+    content: "4";
+
+  }
+  .FIVE:after {
+    content: "5";
+
+  }
+  .SIX:after {
+    content: "6";
+
+  }
+  .SEVEN:after {
+    content: "7";
+
+  }
+  .EIGHT:after {
+    content: "8";
+
+  }
+  .NINE:after {
+    content: "9";
+
+  }
+  .TEN:after {
+    content: "10";
+
+  }
+  .JACK:after {
+    content: "J";
+
+  }
+  .QUEEN:after {
+    content: "Q";
+
+  }
+  .KING:after {
+    content: "K";
+
+  }
+  .ACE:after {
+    content: "A";
   }
 }

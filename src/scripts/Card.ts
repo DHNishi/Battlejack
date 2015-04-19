@@ -60,5 +60,13 @@ module battlejack {
             }
             return 0;
         }
+
+        getSuitName() {
+            return Suit[this.suit];
+        }
+
+        getRankName() {
+            return Rank[this.rank];
+        }
     }
 }

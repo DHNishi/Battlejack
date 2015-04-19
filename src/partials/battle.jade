@@ -30,11 +30,17 @@ div.game(ng-controller="BattleController as battle")
             div
                a(href="#/character-creation") Lol
          div.allies.col-md-8
-               // Need to iterate through all allies.
+               // TODO: Refactor into a directive.
                div(ng-repeat="entity in battle.system.allies")
                    div.ally
                       span(ng-show="battle.getCurrentEntity() === entity") >
-                      span {{entity}}
+                      span {{entity.name}}
+                      div.card(ng-repeat="card in entity.hand.cards")
+                         div.suit(ng-class="card.getSuitName()")
+                         span
+                         div.rank(ng-class="card.getRankName()")
+                      span HP&nbsp;
+                      span {{entity.getStats().hp}}
    //h2 Hello {{battle.helloWorld}}
    //button(ng-click="battle.deal()") Deal
    //button(ng-click="battle.testAddAlly()") Add Ally

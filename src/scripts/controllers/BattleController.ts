@@ -41,10 +41,12 @@ module battlejack {
 
         constructor(battleEntitiesService : BattleEntitiesService, playerEntityService : PlayerEntityService, deckService : DeckService) {
             this.helloWorld = "Hello World";
+            // TODO: Maybe move this initialization aspect into the services.
             this.system = new BattleSystem(playerEntityService.entities.map((entity) => {return new EntityInBattle(entity, new Hand([]))}), battleEntitiesService.entities);
             this.entities = this.system.entities;
             this.deck = this.system.getDeckForTesting();
             this.isBlackjack = false;
+            this.system.initializeRound();
         }
 
         deal() {
