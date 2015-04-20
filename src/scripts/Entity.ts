@@ -64,10 +64,12 @@ module battlejack {
                     if (BattleEvaluator.doesAttackHit(self, target)) {
                         var damage = BattleEvaluator.getAttackDamageDealt(self.hand, 10);
                         target.getStats().hp -= damage;
-                        console.log("Attack lands for ", damage);
+                        //console.log("Attack lands for ", damage);
+                        action.output = "Attack lands for " + damage;
                     }
                     else {
-                        console.log("Attack misses!");
+                        //console.log("Attack misses!");
+                        action.output = "Attack misses!";
                     }
                 });
             };

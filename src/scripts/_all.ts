@@ -16,7 +16,9 @@
 /// <reference path="controllers/ArenaMenuController.ts"/>
 /// <reference path="controllers/BattleController.ts"/>
 /// <reference path="controllers/CharacterCreationController.ts"/>
+/// <reference path="directives/ConsoleOutput.ts"/>
 /// <reference path="services/BattleEntitiesService.ts"/>
+/// <reference path="services/ConsoleOutputService.ts"/>
 /// <reference path="services/DeckService.ts"/>
 /// <reference path="services/PlayerEntityService.ts"/>
 

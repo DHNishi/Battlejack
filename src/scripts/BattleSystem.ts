@@ -17,6 +17,7 @@ module battlejack {
 
         nextAlly : EntityInBattle;
         isBlackjack : boolean;
+        isReady : boolean;
 
         constructor(allies : EntityInBattle[], enemies : CPUEntityInBattle[]) {
             this.handEvaluator = new HandEvaluator();
@@ -31,6 +32,7 @@ module battlejack {
         initializeRound() {
             // Get a randomized deck.
             this.isBlackjack = false;
+            this.isReady = false;
             this.deck = this.deckService.buildDeck();
             this.blackjackDraw();
             this.getNextAllyForAction();
@@ -68,6 +70,32 @@ module battlejack {
                 }
             });
             return isReady;
+        }
+
+        reconcileOneAction() {
+            this.roundActions.sort((a : BattleAction, b : BattleAction) => {
+                var aKey = a.priority;
+                var bKey = b.priority;
+                if (aKey > bKey) {
+                    return -1;
+                }
+                else if (aKey < bKey) {
+                    return 1;
+                }
+                // TODO: Check agility in here.
+                return 0;
+            });
+
+            if (this.roundActions.length == 0) {
+                this.endOfRoundCleanUp();
+                this.initializeRound();
+                this.isBlackjack = false;
+                return;
+            }
+
+            var currentAction = this.roundActions.pop();
+            currentAction.mutateTargets(currentAction.targets, currentAction.entity);
+            return currentAction.output;
         }
 
         reconcileAllActions() {
@@ -152,10 +180,11 @@ module battlejack {
             this.getNextAllyForBlackjack();
             if (typeof this.nextAlly == "undefined") {
                 this.getAIActions();
-                this.reconcileAllActions();
-                this.endOfRoundCleanUp();
-                this.initializeRound();
-                this.isBlackjack = false;
+                this.isReady = true;
+                //this.reconcileAllActions();
+                //this.endOfRoundCleanUp();
+                //this.initializeRound();
+                //this.isBlackjack = false;
             }
         }
 

@@ -38,14 +38,16 @@ module battlejack {
         isBlackjack : boolean;
         private system : BattleSystem;
         private onEntitySelected;
+        private log : ConsoleOutputService;
 
-        constructor(battleEntitiesService : BattleEntitiesService, playerEntityService : PlayerEntityService, deckService : DeckService) {
+        constructor(battleEntitiesService : BattleEntitiesService, playerEntityService : PlayerEntityService, deckService : DeckService, log : ConsoleOutputService) {
             this.helloWorld = "Hello World";
             // TODO: Maybe move this initialization aspect into the services.
             this.system = new BattleSystem(playerEntityService.entities.map((entity) => {return new EntityInBattle(entity, new Hand([]))}), battleEntitiesService.entities);
             this.entities = this.system.entities;
             this.deck = this.system.getDeckForTesting();
             this.isBlackjack = false;
+            this.log = log;
             this.system.initializeRound();
         }
 
@@ -63,6 +65,14 @@ module battlejack {
             return this.system.nextAlly;
         }
 
+        doOneAction() {
+            var output = this.system.reconcileOneAction();
+            if (typeof output != "undefined") {
+                this.log.push(output);
+            } else {
+                this.log.clear();
+            }
+        }
 
         /*
             ACTION SELECTORS
@@ -93,6 +103,7 @@ module battlejack {
 
         allyStand() {
             this.system.standSelected();
+            console.log(this.system.isReady);
         }
 
         testAddEntity() {

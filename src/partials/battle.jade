@@ -28,9 +28,12 @@ div.game(ng-controller="BattleController as battle")
             div
                button(ng-click="battle.deal()") Deal
             div
+               button(ng-click="battle.doOneAction()") Tick
+            div
                a(href="#/character-creation") Lol
          div.allies.col-md-8
                // TODO: Refactor into a directive.
+               console-output
                div(ng-repeat="entity in battle.system.allies")
                    div.ally
                       span(ng-show="battle.getCurrentEntity() === entity") >
@@ -50,6 +53,7 @@ div.game(ng-controller="BattleController as battle")
    //div(ng-repeat="entity in battle.system.allies")
    //   div {{entity}}
    //   button(ng-click="battle.system.hit(entity)") Hit
+
    //   button(ng-click="battle.system.stand(entity)") Stand
    //   div(ng-repeat="target in battle.system.enemies")
    //      button(ng-click="battle.system.enqueueAction(entity.attack(target))") Attack

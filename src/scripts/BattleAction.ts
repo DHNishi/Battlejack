@@ -23,6 +23,7 @@ module battlejack {
         targets : EntityInBattle[];
         otherValidTargets : EntityInBattle[];
         priority : number;
+        output : string;
         // TODO: We probably should inject a logger into here to allow us to log out the battle text.
 
         mutateTargets : (targets : EntityInBattle[], entity : EntityInBattle) => void;
