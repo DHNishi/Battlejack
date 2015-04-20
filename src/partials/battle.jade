@@ -7,43 +7,45 @@ div.game(ng-controller="BattleController as battle")
          div(ng-repeat="entity in battle.system.enemies")
              a(ng-click="battle.clickedEntity(entity)") {{entity}}
       div.command-window
-         div.actions.col-md-4
-            // Need to iterate through all options for the player here.
-            div
-               button(ng-click="battle.allyAttack()", ng-hide="battle.system.isBlackjack") Attack
-            div
-               button(ng-click="battle.allyHit()", ng-show="battle.system.isBlackjack") Hit
-            div
-               button(ng-click="battle.allyStand()", ng-show="battle.system.isBlackjack") Stand
-            div
-               button Spell
-            div
-               button Item
-            div
-               button Defend
-            div
-               button(ng-click="battle.testAddAlly()") Add Ally
-            div
-               button(ng-click="battle.testAddEnemy()") Add Enemy
-            div
-               button(ng-click="battle.deal()") Deal
-            div
-               button(ng-click="battle.doOneAction()") Tick
-            div
-               a(href="#/character-creation") Lol
-         div.allies.col-md-8
-               // TODO: Refactor into a directive.
-               console-output
-               div(ng-repeat="entity in battle.system.allies")
-                   div.ally
-                      span(ng-show="battle.getCurrentEntity() === entity") >
-                      span {{entity.name}}
-                      div.card(ng-repeat="card in entity.hand.cards")
-                         div.suit(ng-class="card.getSuitName()")
-                         span
-                         div.rank(ng-class="card.getRankName()")
-                      span HP&nbsp;
-                      span {{entity.getStats().hp}}
+         a(ng-click="battle.doOneAction()", ng-show="battle.system.isReady")
+            console-output
+         div(ng-hide="battle.system.isReady")
+            div.actions.col-md-4
+               // Need to iterate through all options for the player here.
+               div
+                  button(ng-click="battle.allyAttack()", ng-hide="battle.system.isBlackjack") Attack
+               div
+                  button(ng-click="battle.allyHit()", ng-show="battle.system.isBlackjack") Hit
+               div
+                  button(ng-click="battle.allyStand()", ng-show="battle.system.isBlackjack") Stand
+               div
+                  button Spell
+               div
+                  button Item
+               div
+                  button Defend
+               div
+                  button(ng-click="battle.testAddAlly()") Add Ally
+               div
+                  button(ng-click="battle.testAddEnemy()") Add Enemy
+               div
+                  button(ng-click="battle.deal()") Deal
+               div
+                  button(ng-click="battle.doOneAction()") Tick
+               div
+                  a(href="#/character-creation") Lol
+            div.allies.col-md-8
+                  // TODO: Refactor into a directive.
+                  div(ng-repeat="entity in battle.system.allies")
+                      div.ally
+                         span(ng-show="battle.getCurrentEntity() === entity") >
+                         span {{entity.name}}
+                         div.card(ng-repeat="card in entity.hand.cards")
+                            div.suit(ng-class="card.getSuitName()")
+                            span
+                            div.rank(ng-class="card.getRankName()")
+                         span HP&nbsp;
+                         span {{entity.getStats().hp}}
    //h2 Hello {{battle.helloWorld}}
    //button(ng-click="battle.deal()") Deal
    //button(ng-click="battle.testAddAlly()") Add Ally

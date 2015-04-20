@@ -6,7 +6,7 @@
 module battlejack {
     export function ConsoleOutputDirective(consoleOutputService : ConsoleOutputService) {
         return {
-            template: "<div>{{lastMessage}}</div>",
+            template: "<div class='console-message'>{{lastMessage}}</div>",
             scope: {
             },
             link : ($scope, $elem, attrs) => {

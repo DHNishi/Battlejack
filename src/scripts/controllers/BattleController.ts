@@ -103,6 +103,9 @@ module battlejack {
 
         allyStand() {
             this.system.standSelected();
+            if (this.system.isReady) {
+                this.doOneAction();
+            }
             console.log(this.system.isReady);
         }
 
