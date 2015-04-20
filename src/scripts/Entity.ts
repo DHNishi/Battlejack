@@ -7,6 +7,7 @@ module battlejack {
     export interface IEntity {
         getAttackBonus() : number;
         getAC() : number;
+        getName() : string;
     }
 
     export class Entity implements IEntity {
@@ -24,6 +25,10 @@ module battlejack {
 
         getAC() {
             return this.stats.ac;
+        }
+
+        getName() {
+            return this.name;
         }
     }
 
@@ -49,6 +54,10 @@ module battlejack {
             return this.entity.getAC();
         }
 
+        getName() {
+            return this.entity.getName();
+        }
+
         getStats() {
             return this.entity.stats;
         }
@@ -65,11 +74,11 @@ module battlejack {
                         var damage = BattleEvaluator.getAttackDamageDealt(self.hand, 10);
                         target.getStats().hp -= damage;
                         //console.log("Attack lands for ", damage);
-                        action.output = "Attack lands for " + damage;
+                        action.output = self.getName() + " attacks " + target.getName() + " for " + damage + " damage!";
                     }
                     else {
                         //console.log("Attack misses!");
-                        action.output = "Attack misses!";
+                        action.output = self.getName() + " attacks " + target.getName() + ", but misses!";
                     }
                 });
             };

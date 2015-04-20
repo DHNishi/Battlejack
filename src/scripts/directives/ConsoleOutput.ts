@@ -6,7 +6,7 @@
 module battlejack {
     export function ConsoleOutputDirective(consoleOutputService : ConsoleOutputService) {
         return {
-            template: "<div class='console-message'>{{lastMessage}}</div>",
+            template: "<div class='console-message fade-in'></div>",
             scope: {
             },
             link : ($scope, $elem, attrs) => {
@@ -17,6 +17,8 @@ module battlejack {
                 (n, v) => {
                     console.log("Stuff changed.");
                     $scope.lastMessage = n;
+                    var message = angular.element(".console-message");
+                    message.html("<div class='fade-in'>" + $scope.lastMessage + "</div>");
                 })
             }
         }
