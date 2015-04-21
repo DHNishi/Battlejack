@@ -8,11 +8,13 @@ module battlejack {
         getAttackBonus() : number;
         getAC() : number;
         getName() : string;
+        getSpellList() : BattleActionFactory[];
     }
 
     export class Entity implements IEntity {
         name : string;
         stats : StatBlock;
+        spellList : BattleActionFactory[];
 
         constructor(name? : string) {
             this.name = name;
@@ -29,6 +31,10 @@ module battlejack {
 
         getName() {
             return this.name;
+        }
+
+        getSpellList() {
+            return this.spellList;
         }
     }
 
@@ -60,6 +66,10 @@ module battlejack {
 
         getStats() {
             return this.entity.stats;
+        }
+
+        getSpellList() {
+            return this.entity.getSpellList();
         }
 
         // TODO: Make this into something smarter, better.

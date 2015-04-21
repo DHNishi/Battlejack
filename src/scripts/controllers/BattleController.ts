@@ -82,6 +82,12 @@ module battlejack {
          * Sets up everything to be good on selection.
          */
         allyAttack() {
+            // TODO: We need to change the selection method to check if we even need a selection.
+            // We can get this information from the battle system if we've selected an attack that needs a target.
+            // We need to add that variable to the battle system and check it here.
+            // The controller's responsibility is to pass the required targets based upon the target type.
+            // The battle system's responsibility is to figure out what sort of targets are needed for the request.
+            // The action's responsibility is to construct itself given a target list.
             this.onEntitySelected = entity => {
                 var currentEntity = this.getCurrentEntity();
                 this.system.enqueueAction(currentEntity.attack(entity));
