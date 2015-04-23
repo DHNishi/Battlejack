@@ -36,6 +36,7 @@ module battlejack {
         entities : EntityInBattle[];
         deck : Card[];
         isBlackjack : boolean;
+        chooseSpell : boolean;
         private system : BattleSystem;
         private onEntitySelected;
         private log : ConsoleOutputService;
@@ -47,6 +48,7 @@ module battlejack {
             this.entities = this.system.entities;
             this.deck = this.system.getDeckForTesting();
             this.isBlackjack = false;
+            this.chooseSpell = false;
             this.log = log;
             this.system.initializeRound();
         }
@@ -113,6 +115,28 @@ module battlejack {
                 this.doOneAction();
             }
             console.log(this.system.isReady);
+        }
+
+        allySpell() {
+            this.chooseSpell = true;
+        }
+
+        selectSpell(spell : BattleActionFactory) {
+            console.log("Selected ", spell);
+            this.chooseSpell = false;
+            this.onEntitySelected = entity => {
+                var currentEntity = this.getCurrentEntity();
+                this.system.enqueueAction(spell.getAction([entity], currentEntity));
+                currentEntity.ready = true;
+                this.system.getNextAllyForAction();
+                // If we're out of allies, need to continue.
+                if (typeof this.getCurrentEntity() == "undefined") {
+                    // Begin Blackjack phase.
+                    console.log("BLACKJACK");
+                    this.system.isBlackjack = true;
+                    this.system.getNextAllyForBlackjack();
+                }
+            }
         }
 
         testAddEntity() {

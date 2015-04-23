@@ -95,7 +95,8 @@ module battlejack {
 
             var currentAction = this.roundActions.pop();
             currentAction.mutateTargets(currentAction.targets, currentAction.entity);
-            return currentAction.output;
+            console.log(currentAction);
+            return currentAction.getOutput();
         }
 
         reconcileAllActions() {

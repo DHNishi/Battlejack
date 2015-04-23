@@ -19,7 +19,7 @@ div.game(ng-controller="BattleController as battle")
                div
                   button(ng-click="battle.allyStand()", ng-show="battle.system.isBlackjack") Stand
                div
-                  button Spell
+                  button(ng-click="battle.allySpell()") Spell
                div
                   button Item
                div
@@ -34,7 +34,7 @@ div.game(ng-controller="BattleController as battle")
                   button(ng-click="battle.doOneAction()") Tick
                div
                   a(href="#/character-creation") Lol
-            div.allies.col-md-8
+            div.allies.col-md-8(ng-hide="battle.chooseSpell")
                   // TODO: Refactor into a directive.
                   div(ng-repeat="entity in battle.system.allies")
                       div.ally
@@ -46,6 +46,9 @@ div.game(ng-controller="BattleController as battle")
                             div.rank(ng-class="card.getRankName()")
                          span HP&nbsp;
                          span {{entity.getStats().hp}}
+             div.col-md-8(ng-show="battle.chooseSpell")
+                div(ng-repeat="spell in battle.getCurrentEntity().getSpellList()")
+                   button(ng-click="battle.selectSpell(spell)") {{spell.getActionName()}}
    //h2 Hello {{battle.helloWorld}}
    //button(ng-click="battle.deal()") Deal
    //button(ng-click="battle.testAddAlly()") Add Ally

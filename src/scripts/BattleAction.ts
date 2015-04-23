@@ -30,15 +30,42 @@ module battlejack {
         canBeUsed(entity : EntityInBattle) {
             return true;
         }
+
+        getOutput() {
+            return this.output;
+        }
+
         mutateTargets : (targets : EntityInBattle[], entity : EntityInBattle) => void;
     }
 
     export class SpellAction extends BattleAction {
+        name : string;
+        entity : EntityInBattle;
+        targets : EntityInBattle[];
+        priority : number;
+        output : string;
+        prototype;
         mp_consumed : number;
 
-        constructor(mp_consumed : number) {
+        constructor(action : BattleAction, mp_consumed : number) {
             super();
+            this.name = action.name;
+            this.entity = action.entity;
+            this.targets = action.targets;
+            this.priority = action.priority;
+            this.output = action.output;
+            this.prototype = action;
+
             this.mp_consumed = mp_consumed;
+        }
+
+        mutateTargets = (targets : EntityInBattle[], entity : EntityInBattle) => {
+            entity.getStats().mp -= this.mp_consumed;
+            this.prototype.mutateTargets(targets, entity);
+        };
+
+        getOutput() {
+            return this.prototype.output;
         }
 
         canBeUsed(entity : EntityInBattle) {
@@ -53,28 +80,15 @@ module battlejack {
         }
 
         getAction(targets : EntityInBattle[], entity : EntityInBattle) {
-            var action = this.copyObject(this.prototype);
+            var action = this.prototype;
             action.entity = entity;
             action.targets = targets;
+            console.log(action);
             return action;
         }
 
         getActionName() {
             return this.prototype.name;
-        }
-
-        private copyObject<T> (object:T): T {
-            var objectCopy = <T>{};
-
-            for (var key in object)
-            {
-                if (object.hasOwnProperty(key))
-                {
-                    objectCopy[key] = object[key];
-                }
-            }
-
-            return objectCopy;
         }
     }
 }

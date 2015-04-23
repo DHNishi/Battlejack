@@ -19,6 +19,7 @@ module battlejack {
         constructor(name? : string) {
             this.name = name;
             this.stats = new StatBlock();
+            this.spellList = [];
         }
 
         getAttackBonus() {
