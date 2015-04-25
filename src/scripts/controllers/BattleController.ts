@@ -89,7 +89,6 @@ module battlejack {
 
             if (this.system.isBattleOver()) {
                 // Go to the battle over handler!
-                // TODO: Implement the battle over handler.
                 this.endBattleService.finishBattle();
                 this.$location.path("/dialogue")
             }

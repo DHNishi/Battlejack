@@ -10,6 +10,9 @@ module battlejack {
         getName() : string;
         getSpellList() : string[];
         isIncapacitated() : boolean;
+
+        // Returns the amount of damage dealt.
+        dealDamage(amount : number, type : string) : number;
     }
 
     export class Entity implements IEntity {
@@ -28,7 +31,7 @@ module battlejack {
         }
 
         getAC() {
-            return this.stats.ac;
+            return this.stats.ac + this.stats.getStatBonus(Stat.DEXTERITY);
         }
 
         getName() {
@@ -41,6 +44,12 @@ module battlejack {
 
         isIncapacitated() {
             return this.stats.hp > 0;
+        }
+
+        dealDamage(amount : number, type : string) {
+            // TODO: This is simplistic and stupid. Improve it!
+            this.stats.hp -= amount;
+            return amount;
         }
     }
 
@@ -82,6 +91,10 @@ module battlejack {
             return this.entity.isIncapacitated();
         }
 
+        dealDamage(amount : number, type : string) {
+            return this.entity.dealDamage(amount, type);
+        }
+
         // TODO: Make this into something smarter, better.
         attack(target : EntityInBattle) {
             var action = new BattleAction;
@@ -91,8 +104,8 @@ module battlejack {
             action.mutateTargets = (targets : EntityInBattle[], self : EntityInBattle) => {
                 targets.forEach((target) => {
                     if (BattleEvaluator.doesAttackHit(self, target)) {
-                        var damage = BattleEvaluator.getAttackDamageDealt(self.hand, 10);
-                        target.getStats().hp -= damage;
+                        var expectedDamage = BattleEvaluator.getAttackDamageDealt(self.hand, 10);
+                        var damage = target.dealDamage(expectedDamage, "Slashing");
                         //console.log("Attack lands for ", damage);
                         action.output = self.getName() + " attacks " + target.getName() + " for " + damage + " damage!";
                     }
@@ -193,6 +206,10 @@ module battlejack {
                     this.luck = value;
                     break;
             }
+        }
+
+        getStatBonus(stat : Stat) {
+            return Math.floor((this.getStat(stat) - 10) / 2);
         }
     }
 

@@ -16,7 +16,9 @@ module battlejack {
 
         generateEnemy(difficulty) {
             // TODO: Make this change based upon difficulty.
-            return new CPUEntityInBattle(new Entity, new Hand([]));
+            var entity = new CPUEntityInBattle(new Entity, new Hand([]));
+            entity.entity.name = "CPU";
+            return entity;
         }
     }
 }

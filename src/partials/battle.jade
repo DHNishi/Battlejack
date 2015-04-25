@@ -5,7 +5,9 @@ div.game(ng-controller="BattleController as battle")
    div.battle
       div.battle-pane
          div(ng-repeat="entity in battle.system.enemies")
-             a(ng-click="battle.clickedEntity(entity)") {{entity}}
+            a(ng-click="battle.clickedEntity(entity)")
+               div.enemy-image
+               div {{entity.getName()}}
       div.command-window
          a(ng-click="battle.doOneAction()", ng-show="battle.system.isReady")
             console-output
