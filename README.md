@@ -1,6 +1,24 @@
 # Battlejack
 A turn-based RPG adventure where you battle foes with Blackjack!
 
+# What Works?
+
+A basic battle system using the RPG and Blackjack mechanics together works.
+
+A simple character creation system.
+
+## What needs immediate work?
+
+Re-factor the battle action system to be more maintainable and sustainable. This includes not relying on the return value of the output text.
+
+Need to add an experience system.
+
+Need to actually make spells.
+
+Need to add a race/class system.
+
+Need to make the other stats actually useful.
+
 # What features are planned?
 
 ## Milestone 1

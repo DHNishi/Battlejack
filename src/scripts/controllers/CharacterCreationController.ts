@@ -10,12 +10,14 @@ module battlejack {
         character : Entity;
         name : string;
         private playerService : PlayerEntityService;
+        private spellService : SpellService;
 
-        constructor(playerEntityService : PlayerEntityService) {
+        constructor(playerEntityService : PlayerEntityService, spellService : SpellService) {
             // Iterate every the stat block.
             this.stats = [];
             this.creator = new CharacterCreator();
             this.playerService = playerEntityService;
+            this.spellService = spellService;
             console.log(Stat);
             for (var val in Stat) {
                 if (isNaN(val)) {
@@ -42,6 +44,17 @@ module battlejack {
         createCharacter() {
             this.character = this.creator.createCharacter(this.name);
             this.playerService.addEntity(this.character);
+
+            // TODO: remove.
+            var action = new BattleAction;
+            action.name = "Zip";
+            action.priority = 0;
+            action.mutateTargets = (targets : EntityInBattle[], self : EntityInBattle) => {
+                console.log("NO!");
+                action.output = "Zap!";
+                console.log(action);
+            };
+            this.spellService.addSpell("Zap", new BattleActionFactory(action));
         }
 
     }

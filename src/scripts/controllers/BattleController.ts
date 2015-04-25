@@ -41,8 +41,9 @@ module battlejack {
         private onEntitySelected;
         private log : ConsoleOutputService;
         private $location;
+        private spellService : SpellService;
 
-        constructor($location, battleEntitiesService : BattleEntitiesService, playerEntityService : PlayerEntityService, deckService : DeckService, log : ConsoleOutputService) {
+        constructor($location, battleEntitiesService : BattleEntitiesService, playerEntityService : PlayerEntityService, deckService : DeckService, log : ConsoleOutputService, spellService : SpellService) {
             this.helloWorld = "Hello World";
             // TODO: Maybe move this initialization aspect into the services.
             this.system = new BattleSystem(playerEntityService.entities.map((entity) => {return new EntityInBattle(entity, new Hand([]))}), battleEntitiesService.entities);
@@ -52,6 +53,7 @@ module battlejack {
             this.chooseSpell = false;
             this.log = log;
             this.$location = $location;
+            this.spellService = spellService;
             this.system.initializeRound();
         }
 
@@ -130,11 +132,12 @@ module battlejack {
             this.chooseSpell = true;
         }
 
-        selectSpell(spell : BattleActionFactory) {
-            console.log("Selected ", spell);
+        selectSpell(spellName : string) {
+            console.log("Selected ", spellName);
             this.chooseSpell = false;
             this.onEntitySelected = entity => {
                 var currentEntity = this.getCurrentEntity();
+                var spell = this.spellService.getSpell(spellName);
                 this.system.enqueueAction(spell.getAction([entity], currentEntity));
                 currentEntity.ready = true;
                 this.system.getNextAllyForAction();

@@ -8,13 +8,13 @@ module battlejack {
         getAttackBonus() : number;
         getAC() : number;
         getName() : string;
-        getSpellList() : BattleActionFactory[];
+        getSpellList() : string[];
     }
 
     export class Entity implements IEntity {
         name : string;
         stats : StatBlock;
-        spellList : BattleActionFactory[];
+        spellList : string[];
 
         constructor(name? : string) {
             this.name = name;

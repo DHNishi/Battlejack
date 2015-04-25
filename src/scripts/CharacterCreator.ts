@@ -56,16 +56,8 @@ module battlejack {
             var newEntity = new Entity(name);
             newEntity.stats = this.stats;
 
-            // TODO: remove.
-            var action = new BattleAction;
-            action.name = "zip";
-            action.priority = 0;
-            action.mutateTargets = (targets : EntityInBattle[], self : EntityInBattle) => {
-                console.log("NO!");
-                action.output = "Zap!";
-                console.log(action);
-            };
-            newEntity.getSpellList().push(new BattleActionFactory(new SpellAction(action, 0)));
+
+            newEntity.getSpellList().push("Zap");
             return newEntity;
         }
     }

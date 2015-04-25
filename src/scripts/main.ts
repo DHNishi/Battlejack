@@ -10,9 +10,10 @@ module battlejack {
         .service('battleEntitiesService', BattleEntitiesService)
         .service('consoleOutputService', ConsoleOutputService)
         .service("playerEntityService", PlayerEntityService)
+        .service("spellService", SpellService)
         .controller("ArenaMenuController", ["battleEntitiesService", "playerEntityService", "$location", ArenaMenuController])
-        .controller("BattleController", ["$location", "battleEntitiesService", "playerEntityService", "deckService", "consoleOutputService", BattleController])
-        .controller("CharacterCreationController", ["playerEntityService", CharacterCreationController])
+        .controller("BattleController", ["$location", "battleEntitiesService", "playerEntityService", "deckService", "consoleOutputService", "spellService", BattleController])
+        .controller("CharacterCreationController", ["playerEntityService", "spellService", CharacterCreationController])
         .directive("consoleOutput", ["consoleOutputService", ConsoleOutputDirective])
         .config(['$routeProvider', ($routeProvider) => {
             $routeProvider.
