@@ -70,6 +70,7 @@ module battlejack {
         }
 
         getStat() {
+            console.log(this.stat, Stat[this.stat]);
             return this.creator.stats.getStat(this.stat);
         }
     }

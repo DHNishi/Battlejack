@@ -8,7 +8,7 @@
 /// <reference path="../scripts/Entity.ts"/>
 /// <reference path="../scripts/BattleEvaluator.ts"/>
 module battlejack {
-    describe("Entity", () => {
+    describe("Battle Evaluator", () => {
         it("Does attack hit?", () => {
             var baseEntity = new Entity;
             var attackerHand = new Hand([new Card(Suit.CLUBS, Rank.EIGHT),

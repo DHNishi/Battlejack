@@ -9,6 +9,7 @@
 /// <reference path="Card.ts"/>
 /// <reference path="CharacterCreator.ts"/>
 /// <reference path="Entity.ts"/>
+/// <reference path="EntityExperienceSystem.ts"/>
 /// <reference path="Hand.ts"/>
 /// <reference path="HandEvaluator.ts"/>
 /// <reference path="BattleAction.ts"/>

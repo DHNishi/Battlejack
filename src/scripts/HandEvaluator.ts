@@ -2,10 +2,6 @@
  * Created by dhnishi on 4/11/15.
  */
 
-/**
- * Created by dhnishi on 4/11/15.
- */
-
 /// <reference path="_all.ts"/>
 module battlejack {
     export class HandEvaluator {

@@ -26,12 +26,26 @@ module battlejack {
             this.playerEntityService.entities.map((entity : Entity) => {
                 // TODO: Replace this with a real value.
                 entity.stats.hp = 10;
+                console.log(entity);
             });
         }
 
         finishBattle() {
             if (this.didPlayerWin()) {
                 console.log("YEAH");
+                var experienceGained = 0;
+                this.battleEntityService.entities.map(enemy => {
+                    experienceGained += enemy.getExperience() / 8;
+                });
+
+                this.playerEntityService.entities.map(player => {
+                    player.addExperience(experienceGained);
+                    var expNeeded = getExperienceNeededForLevel(player.getLevel() + 1);
+                    // TODO: Fix this for multiple level ups.
+                    if (expNeeded < player.getExperience()) {
+                        player.levelUp();
+                    }
+                });
             }
             this.cleanup();
         }

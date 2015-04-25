@@ -18,6 +18,7 @@ module battlejack {
             // TODO: Make this change based upon difficulty.
             var entity = new CPUEntityInBattle(new Entity, new Hand([]));
             entity.entity.name = "CPU";
+            entity.addExperience(8000);
             return entity;
         }
     }

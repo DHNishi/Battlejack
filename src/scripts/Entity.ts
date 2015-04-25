@@ -11,6 +11,11 @@ module battlejack {
         getSpellList() : string[];
         isIncapacitated() : boolean;
 
+        getLevel() : number;
+        getExperience() : number;
+        addExperience(exp : number) : void;
+        levelUp();
+
         // Returns the amount of damage dealt.
         dealDamage(amount : number, type : string) : number;
     }
@@ -19,11 +24,15 @@ module battlejack {
         name : string;
         stats : StatBlock;
         spellList : string[];
+        private level : number;
+        private experience : number;
 
         constructor(name? : string) {
             this.name = name;
             this.stats = new StatBlock();
             this.spellList = [];
+            this.experience = 0;
+            this.level = 1;
         }
 
         getAttackBonus() {
@@ -31,7 +40,10 @@ module battlejack {
         }
 
         getAC() {
-            return this.stats.ac + this.stats.getStatBonus(Stat.DEXTERITY);
+            var statBonus = this.stats.getStatBonus(Stat.DEXTERITY);
+            console.log(statBonus);
+            console.log(this.stats.dexterity);
+            return this.stats.ac;
         }
 
         getName() {
@@ -50,6 +62,19 @@ module battlejack {
             // TODO: This is simplistic and stupid. Improve it!
             this.stats.hp -= amount;
             return amount;
+        }
+
+        getLevel() : number {
+            return this.level;
+        }
+        getExperience() : number {
+            return this.experience;
+        }
+        addExperience(exp : number) {
+            this.experience += exp;
+        }
+        levelUp() {
+            this.level += 1;
         }
     }
 
@@ -93,6 +118,22 @@ module battlejack {
 
         dealDamage(amount : number, type : string) {
             return this.entity.dealDamage(amount, type);
+        }
+
+        getLevel() : number {
+            return this.entity.getLevel();
+        }
+
+        getExperience() : number {
+            return this.entity.getExperience();
+        }
+
+        addExperience(exp : number) {
+            this.entity.addExperience(exp);
+        }
+
+        levelUp() {
+            this.entity.levelUp();
         }
 
         // TODO: Make this into something smarter, better.
@@ -173,36 +214,38 @@ module battlejack {
         }
 
         getStat(stat : Stat) {
-            switch(Stat[stat]) {
-                case Stat.STRENGTH.valueOf():
+            var statConverted : any = Stat[stat];
+            switch(statConverted) {
+                case Stat.STRENGTH:
                     return this.strength;
-                case Stat.DEXTERITY.valueOf():
+                case Stat.DEXTERITY:
                     return this.dexterity;
-                case Stat.CONSTITUTION.valueOf():
+                case Stat.CONSTITUTION:
                     return this.constitution;
-                case Stat.INTELLIGENCE.valueOf():
+                case Stat.INTELLIGENCE:
                     return this.intelligence;
-                case Stat.LUCK.valueOf():
+                case Stat.LUCK:
                     return this.luck;
             }
             return -1;
         }
 
         setStat(stat : Stat, value : number) {
-            switch(Stat[stat]) {
-                case Stat.STRENGTH.valueOf():
+            var statConverted : any = Stat[stat];
+            switch(statConverted) {
+                case Stat.STRENGTH:
                     this.strength = value;
                     break;
-                case Stat.DEXTERITY.valueOf():
+                case Stat.DEXTERITY:
                     this.dexterity = value;
                     break;
-                case Stat.CONSTITUTION.valueOf():
+                case Stat.CONSTITUTION:
                     this.constitution = value;
                     break;
-                case Stat.INTELLIGENCE.valueOf():
+                case Stat.INTELLIGENCE:
                     this.intelligence = value;
                     break;
-                case Stat.LUCK.valueOf():
+                case Stat.LUCK:
                     this.luck = value;
                     break;
             }
