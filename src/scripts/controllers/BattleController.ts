@@ -42,8 +42,14 @@ module battlejack {
         private log : ConsoleOutputService;
         private $location;
         private spellService : SpellService;
+        private endBattleService : EndBattleService;
 
-        constructor($location, battleEntitiesService : BattleEntitiesService, playerEntityService : PlayerEntityService, deckService : DeckService, log : ConsoleOutputService, spellService : SpellService) {
+        constructor($location, battleEntitiesService : BattleEntitiesService,
+                    playerEntityService : PlayerEntityService,
+                    deckService : DeckService,
+                    log : ConsoleOutputService,
+                    spellService : SpellService,
+                    endBattleService : EndBattleService) {
             this.helloWorld = "Hello World";
             // TODO: Maybe move this initialization aspect into the services.
             this.system = new BattleSystem(playerEntityService.entities.map((entity) => {return new EntityInBattle(entity, new Hand([]))}), battleEntitiesService.entities);
@@ -54,6 +60,7 @@ module battlejack {
             this.log = log;
             this.$location = $location;
             this.spellService = spellService;
+            this.endBattleService = endBattleService;
             this.system.initializeRound();
         }
 
@@ -83,6 +90,7 @@ module battlejack {
             if (this.system.isBattleOver()) {
                 // Go to the battle over handler!
                 // TODO: Implement the battle over handler.
+                this.endBattleService.finishBattle();
                 this.$location.path("/dialogue")
             }
         }

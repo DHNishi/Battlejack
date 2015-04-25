@@ -20,6 +20,7 @@
 /// <reference path="services/BattleEntitiesService.ts"/>
 /// <reference path="services/ConsoleOutputService.ts"/>
 /// <reference path="services/DeckService.ts"/>
+/// <reference path="services/EndBattleService.ts"/>
 /// <reference path="services/PlayerEntityService.ts"/>
 /// <reference path="services/SpellService.ts"/>
 

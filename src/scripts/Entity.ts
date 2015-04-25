@@ -9,6 +9,7 @@ module battlejack {
         getAC() : number;
         getName() : string;
         getSpellList() : string[];
+        isIncapacitated() : boolean;
     }
 
     export class Entity implements IEntity {
@@ -36,6 +37,10 @@ module battlejack {
 
         getSpellList() {
             return this.spellList;
+        }
+
+        isIncapacitated() {
+            return this.stats.hp > 0;
         }
     }
 
@@ -71,6 +76,10 @@ module battlejack {
 
         getSpellList() {
             return this.entity.getSpellList();
+        }
+
+        isIncapacitated() {
+            return this.entity.isIncapacitated();
         }
 
         // TODO: Make this into something smarter, better.
