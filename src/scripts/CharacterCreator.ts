@@ -6,8 +6,6 @@
 module battlejack {
     export class CharacterCreator {
         stats : StatBlock;
-        pointsRemaining : number;
-        CHARACTER_CREATION_POINTS = 32;
         POINT_BUY_COSTS = {
             8: 1,
             9: 1,
@@ -24,22 +22,24 @@ module battlejack {
         MIN_STAT = 8;
         MAX_STAT = 18;
 
-        constructor() {
-            this.stats = new StatBlock();
-            this.pointsRemaining = this.CHARACTER_CREATION_POINTS;
+        constructor(statBlock? : StatBlock) {
+            this.stats = statBlock;
+            if (typeof this.stats == "undefined") {
+                this.stats = new StatBlock();
+            }
         }
 
         incrementStat(stat : Stat) {
             var currentValue = this.stats.getStat(stat);
             var cost = this.POINT_BUY_COSTS[currentValue];
 
-            if (cost > this.pointsRemaining) {
+            if (cost > this.stats.statPoints) {
                 return;
             }
             if (currentValue >= this.MAX_STAT) {
                 return;
             }
-            this.pointsRemaining -= cost;
+            this.stats.statPoints -= cost;
             this.stats.setStat(stat, currentValue + 1);
         }
 
@@ -48,7 +48,7 @@ module battlejack {
             if (currentValue <= this.MIN_STAT) {
                 return;
             }
-            this.pointsRemaining += this.POINT_BUY_COSTS[currentValue - 1];
+            this.stats.statPoints += this.POINT_BUY_COSTS[currentValue - 1];
             this.stats.setStat(stat, currentValue - 1);
         }
 

@@ -74,6 +74,7 @@ module battlejack {
             this.experience += exp;
         }
         levelUp() {
+            this.stats.statPoints += 4;
             this.level += 1;
         }
     }
@@ -176,6 +177,7 @@ module battlejack {
 
     export class StatBlock {
         static BASE_STAT = 10;
+        static BASE_STAT_POINTS = 32;
 
         hp : number;
         mp : number;
@@ -186,6 +188,8 @@ module battlejack {
         luck : number;
         ac : number; // armor class
 
+        statPoints : number;
+
         constructor() {
             this.hp = StatBlock.BASE_STAT;
             this.mp = StatBlock.BASE_STAT;
@@ -195,6 +199,7 @@ module battlejack {
             this.intelligence = StatBlock.BASE_STAT;
             this.luck = StatBlock.BASE_STAT;
             this.ac = StatBlock.BASE_STAT;
+            this.statPoints = StatBlock.BASE_STAT_POINTS;
         }
 
         static getStatName(stat) {

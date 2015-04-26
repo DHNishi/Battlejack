@@ -14,12 +14,14 @@ module battlejack {
         }
 
         didPlayerWin() {
+            // Something is buggy here...
+            var isPlayerWin = true;
             this.playerEntityService.entities.map((entity : Entity) => {
                if (entity.isIncapacitated()) {
-                   return false;
+                   isPlayerWin = false;
                }
             });
-            return true;
+            return isPlayerWin;
         }
 
         cleanup() {

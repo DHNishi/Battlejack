@@ -9,15 +9,17 @@ module battlejack {
         creator : CharacterCreator;
         character : Entity;
         name : string;
-        private playerService : PlayerEntityService;
+        playerService : PlayerEntityService;
         private spellService : SpellService;
+        private $location;
 
-        constructor(playerEntityService : PlayerEntityService, spellService : SpellService) {
+        constructor(playerEntityService : PlayerEntityService, spellService : SpellService, $location) {
             // Iterate every the stat block.
             this.stats = [];
             this.creator = new CharacterCreator();
             this.playerService = playerEntityService;
             this.spellService = spellService;
+            this.$location = $location;
             console.log(Stat);
             for (var val in Stat) {
                 if (isNaN(val)) {
@@ -38,7 +40,7 @@ module battlejack {
         }
 
         getPointsRemaining() {
-            return this.creator.pointsRemaining;
+            return this.creator.stats.statPoints;
         }
 
         createCharacter() {
@@ -55,8 +57,24 @@ module battlejack {
                 console.log(action);
             };
             this.spellService.addSpell("Zap", new BattleActionFactory(action));
+
+            this.reinitialize(new StatBlock());
         }
 
+        save() {
+            this.$location.path("/dialogue");
+        }
+
+        reinitialize(stats : StatBlock) {
+            console.log("Reinitializing...");
+            this.creator = new CharacterCreator(stats);
+            this.stats = [];
+            for (var val in Stat) {
+                if (isNaN(val)) {
+                    this.stats.push(new StatView(val, this.creator));
+                }
+            }
+        }
     }
 
     class StatView {

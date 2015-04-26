@@ -20,7 +20,7 @@ module battlejack {
             "consoleOutputService",
             "spellService",
             "endBattleService", BattleController])
-        .controller("CharacterCreationController", ["playerEntityService", "spellService", CharacterCreationController])
+        .controller("CharacterCreationController", ["playerEntityService", "spellService", "$location", CharacterCreationController])
         .directive("consoleOutput", ["consoleOutputService", ConsoleOutputDirective])
         .config(['$routeProvider', ($routeProvider) => {
             $routeProvider.

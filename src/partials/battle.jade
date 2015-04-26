@@ -8,6 +8,7 @@ div.game(ng-controller="BattleController as battle")
             a(ng-click="battle.clickedEntity(entity)")
                div.enemy-image
                div {{entity.getName()}}
+                  span {{entity.getStats().hp}}
       div.command-window
          a(ng-click="battle.doOneAction()", ng-show="battle.system.isReady")
             console-output
